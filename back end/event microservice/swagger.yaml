@@ -1,0 +1,227 @@
+swagger: '2.0'
+info:
+  description: Sample swagger for Event and dashboard microservices
+  version: Version - 1.0
+  title: Outreach
+  termsOfService: Project Url
+  contact:
+    name: Santhosh and Aravinthan P
+  license:
+    name: Api License
+host: 'localhost:8091'
+basePath: /
+tags:
+  - name: event-controller
+    description: Event Controller
+paths:
+  /event:
+    post:
+      tags:
+        - event-controller
+      summary: To add the event
+      description: Put the Event details in the body
+      operationId: addEventUsingPOST
+      consumes:
+        - application/json
+      produces:
+        - '*/*'
+      parameters:
+        - in: body
+          name: event
+          description: Give the event details to be added
+          required: true
+          schema:
+            $ref: '#/definitions/Event'
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/Event'
+        '201':
+          description: Created
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+      deprecated: false
+    get:
+      tags:
+        - event-controller
+      summary: Provide all the events
+      description: All the events are fetched
+      operationId: getAllEventUsingGET
+      produces:
+        - '*/*'
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Event'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+      deprecated: false  
+    put:
+      tags:
+        - event-controller
+      summary: To update the event details
+      description: Put the updated event details in the body
+      operationId: editEventUsingPUT
+      consumes:
+        - application/json
+      produces:
+        - '*/*'
+      parameters:
+        - in: body
+          name: event
+          description: Give the event details to be updated
+          required: true
+          schema:
+            $ref: '#/definitions/Event'
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/Event'
+        '201':
+          description: Created
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+      deprecated: false  
+  /dashboard:
+    get:
+      tags:
+        - event-controller
+      summary: Dashboard details
+      description: Fetch the details for the dashboard page
+      operationId: getDashboardDetailsUsingGET
+      produces:
+        - '*/*'
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/DashboardDetails'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+      deprecated: false
+  '/event/{eventId}':
+    get:
+      tags:
+        - event-controller
+      summary: Find the event by id
+      description: Provide an id to look up for specific event
+      operationId: getPendingListUsingGET
+      produces:
+        - '*/*'
+      parameters:
+        - name: eventId
+          in: path
+          description: Id value for the event you are searching for
+          required: true
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/Event'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+      deprecated: false
+    delete:
+      tags:
+        - event-controller
+      summary: 'Delete the event '
+      description: Provide the event id to deleted
+      operationId: deleteEventUsingDELETE
+      produces:
+        - '*/*'
+      parameters:
+        - name: eventId
+          in: path
+          description: Id value for the event you have to delete
+          required: true
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: OK
+          # schema:
+          #   type: array
+            # items:
+            #   $ref: '#/definitions/AnnotationDescription'
+        '204':
+          description: No Content
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      deprecated: false  
+definitions:
+  DashboardDetails:
+    type: object
+    properties:
+      details:
+        type: string
+    title: DashboardDetails
+  Employee:
+    type: object
+    properties:
+      email:
+        type: string
+      firstName:
+        type: string
+      id:
+        type: integer
+        format: int32
+      lastName:
+        type: string
+    title: Employee
+  Event:
+    type: object
+    properties:
+      base_location:
+        type: string
+      event_date:
+        type: string
+        format: date-time
+      event_id:
+        type: integer
+        format: int32
+      event_name:
+        type: string
+      event_status:
+        type: string
+      total_travel_hour:
+        type: integer
+        format: int32
+      total_volunteer_hour:
+        type: integer
+        format: int32
+      total_volunteers:
+        type: integer
+        format: int32
+      venue_address:
+        type: string
+    title: Event
+  

@@ -1,0 +1,61 @@
+swagger: '2.0'
+info:
+  description: Sample swagger for the Excel microservices
+  version: Version - 1.0
+  title: Outeach
+  termsOfService: Project Url
+  contact:
+    name: Santhosh and Aravinthan P
+  license:
+    name: Api License
+  
+host: 'localhost:8091'
+basePath: /
+tags:
+  - name: media-controller
+    description: Media Controller
+paths:
+  /media/download:
+    get:
+      tags:
+        - media-controller
+      summary: To download excel
+      description: Gets the excel sheet
+      operationId: getExcelSheetUsingGET
+      produces:
+        - '*/*'
+      responses:
+        '200':
+          description: OK
+          # schema:
+          #   $ref: '#/definitions/ResponseEntity'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+      deprecated: false
+  /media/export:
+    get:
+      tags:
+        - media-controller
+      summary: To export excel
+      description: Gets the excel sheet
+      operationId: uploadExcelSheetUsingGET
+      produces:
+        - '*/*'
+      responses:
+        '200':
+          description: OK
+          # schema:
+          #   type: array
+          #   items:
+          #     $ref: '#/definitions/AnnotationDescription'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+      deprecated: false

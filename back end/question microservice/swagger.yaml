@@ -1,0 +1,157 @@
+swagger: '2.0'
+info:
+  description: Sample swagger for Question microservices
+  version: Version - 1.0
+  title: Outreach
+  termsOfService: Project Url
+  contact:
+    name: Santhosh and Aravinthan P
+  license:
+    name: Api License
+host: 'localhost:8091'
+basePath: /
+tags:
+  - name: question-controller
+    description: Question Controller
+paths:
+  /question:
+    post:
+      tags:
+        - question-controller
+      summary: To add a question
+      description: Put the Question details in the body
+      operationId: addQuestionUsingPOST
+      consumes:
+        - application/json
+      produces:
+        - '*/*'
+      parameters:
+        - in: body
+          name: question
+          description: Give the question details to be added
+          required: true
+          schema:
+            $ref: '#/definitions/Question'
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/Question'
+        '201':
+          description: Created
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+      deprecated: false
+    put:
+      tags:
+        - question-controller
+      summary: To update the question
+      description: Put the updated question details in the body
+      operationId: editQuestionUsingPUT
+      consumes:
+        - application/json
+      produces:
+        - '*/*'
+      parameters:
+        - in: body
+          name: event
+          description: Give the question details to be updated
+          required: true
+          schema:
+            $ref: '#/definitions/Question'
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/Question'
+        '201':
+          description: Created
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+      deprecated: false  
+  '/question{questionId}':
+    delete:
+      tags:
+        - question-controller
+      summary: 'Delete the question '
+      description: Provide the question id to deleted
+      operationId: deleteQuestionUsingDELETE
+      produces:
+        - '*/*'
+      parameters:
+        - name: questionId
+          in: path
+          description: Id value for the question you have to delete
+          required: true
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: OK
+          # schema:
+          #   type: array
+            # items:
+            #   $ref: '#/definitions/AnnotationDescription'
+        '204':
+          description: No Content
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      deprecated: false
+
+    
+  '/question/{eventId}':
+    get:
+      tags:
+        - question-controller
+      summary: Find the questions for event
+      description: Provide an id to look up for questions related to the event
+      operationId: getQuestionListUsingGET
+      produces:
+        - '*/*'
+      parameters:
+        - name: eventId
+          in: path
+          description: Id value for the questions you are searching for
+          required: true
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Question'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+      deprecated: false
+definitions:
+  Question:
+    type: object
+    properties:
+      feedback_type:
+        type: string
+      question:
+        type: string
+      question_id:
+        type: integer
+        format: int32
+      event_id:
+        type: integer
+        format: int32  
+    title: Question
+  
